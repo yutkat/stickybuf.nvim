@@ -54,7 +54,7 @@ end
 
 M.on_buf_hidden = function(bufnr)
   local ok, prev_bufhidden = pcall(vim.api.nvim_buf_get_var, bufnr, "prev_bufhidden")
-  if ok then
+  if ok and tonumber(prev_bufhidden) ~= nil then
     -- We need a long delay for this to make sure we're not going to restore this buffer
     vim.defer_fn(function()
       if vim.api.nvim_buf_is_valid(bufnr) and #vim.fn.win_findbuf(bufnr) == 0 then
